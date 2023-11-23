@@ -59,20 +59,34 @@ export default function ChatPage() {
 		setLoading(false);
 	}
 
+	// Scroll to bottom of chat container when message is added
 	useEffect(() => {
-		console.log("scroll...");
 		scrollToBottom();
+		console.log(messages);
 	}, [messages]);
 
+	// Add class to chat container's inner element to enable smooth scrolling
+	useEffect(() => {
+		const scrollContainer = document
+			.getElementById("chatContainer")
+			?.querySelector("div");
+		scrollContainer?.classList.add("overflow-y-scroll");
+	}, []);
+
+	// Scroll to bottom of chat container
 	function scrollToBottom() {
 		setTimeout(() => {
-			const scrollContainer = document.getElementById("chatContainer");
+			// get inner element of chat container
+			const scrollContainer = document
+				.getElementById("chatContainer")
+				?.querySelector("div");
+
 			if (scrollContainer) {
-				scrollContainer.scrollTop = scrollContainer.scrollHeight;
-			}
-			const scrollContainer2 = document.getElementById("chatContainer2");
-			if (scrollContainer2) {
-				scrollContainer2.scrollTop = scrollContainer2.scrollHeight;
+				// smooth scroll
+				scrollContainer.scrollTo({
+					top: scrollContainer.scrollHeight,
+					behavior: "smooth",
+				});
 			}
 		}, 100);
 	}
@@ -121,7 +135,7 @@ export default function ChatPage() {
 		<div className="h-screen">
 			<Header>Chat</Header>
 
-			<div className="p-4 relative flex flex-col lg:grid lg:grid-cols-[1fr,3fr,250px] gap-4 lg:gap-8 h-[calc(100%-3.5rem)]">
+			<div className="p-4 relative flex flex-col lg:grid lg:grid-cols-[1fr,3fr,250px] gap-4 lg:gap-8 overflow-hidden h-[calc(100vh-57px)] ">
 				{/* SYSTEM FORM */}
 
 				<form
@@ -145,26 +159,25 @@ export default function ChatPage() {
 
 				{/* CHAT CONTAINER */}
 
-				<ScrollArea className=" h-[calc(100%)] " id="chatContainer">
-					<div
-						className="flex flex-col gap-4 pt-12 pb-20 overflow-y-scroll max-h-[calc(100vh-5rem)]  lg:mx-2 lg:px-3"
-						id="chatContainer2"
-					>
-						{/* CHAT MESSAGES */}
-						{/* System messages hidden for now */}
+				{/* CHAT CONTAINER HERE */}
+				<div className=" flex flex-col gap-1.5  h-[calc(100%-178px)] lg:h-full overflow-hidden relative py-12">
+					<SystemModal
+						message={messages[0]}
+						className="border px-4 py-1 h-8 overflow-hidden rounded absolute top-0 left-0 right-0 backdrop-blur-lg"
+					/>
 
-						{/* -translate-y-4 */}
-						<div className="absolute top-2 left-5 right-5">
-							<SystemModal message={messages[0]} />
-						</div>
+					<ScrollArea
+						className="flex-1 px-3 scroll-smooth"
+						id="chatContainer"
+					>
 						{messages.map((msg: any, index: number) => (
 							<div
 								key={index}
-								className="flex flex-col text-white"
+								className="flex flex-col text-white mb-1.5"
 							>
 								<div
 									className={cn(
-										"rounded-lg px-2 py-1 max-w-[500px]",
+										"rounded-lg px-2 py-1 max-w-[90%]",
 										{
 											"bg-blue-500 self-end":
 												msg.role === "user",
@@ -180,12 +193,12 @@ export default function ChatPage() {
 											System instructions:
 										</span>
 									)}
-									<MarkdownLite text={msg.content} />
+									<p className="whitespace-pre-wrap">
+										<MarkdownLite text={msg.content} />
+									</p>
 								</div>
 							</div>
 						))}
-
-						{/* LOADING STATE MESSAGE */}
 						{loading && (
 							<div className="flex flex-col text-white">
 								<div
@@ -200,10 +213,11 @@ export default function ChatPage() {
 								</div>
 							</div>
 						)}
-					</div>
+					</ScrollArea>
+
 					{/* USER MESSAGE FORM */}
 					<form
-						className="fixed bottom-4 lg:absolute lg:left-5 flex gap-4 left-[80px] right-5 z-30"
+						className="flex items-center bottom-0 absolute left-0 right-0 gap-2"
 						onSubmit={messageSubmit}
 					>
 						<Input
@@ -219,11 +233,11 @@ export default function ChatPage() {
 							Send
 						</Button>
 					</form>
-				</ScrollArea>
+				</div>
 
 				{/* PAYLOAD CONTROL */}
 
-				<div className="font-mono text-slate-500 text-xs border-l px-4 hidden md:block">
+				<div className="font-mono text-slate-500 text-xs border-l px-4 hidden lg:block">
 					more model customization coming soon...
 				</div>
 			</div>
@@ -236,3 +250,7 @@ const Xmessages = Array.from({ length: 100 }, (_, i) => ({
 	role: "user",
 	content: `content ${i}`,
 }));
+
+/* 
+
+*/

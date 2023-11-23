@@ -1,0 +1,80 @@
+<div
+					className="flex flex-col gap-4 pt-12 pb-20 h-[calc(100vh)] max-h-[calc(100vh-5rem)] lg:mx-2 lg:px-3"
+					id="chatContainer"
+				>
+					{/* <div
+						className="flex flex-col gap-4 pt-12 pb-20 overflow-y-scroll max-h-[calc(100vh-5rem)]  lg:mx-2 lg:px-3"
+						id="chatContainer2"
+					> */}
+					{/* CHAT MESSAGES */}
+					{/* System messages hidden for now */}
+
+					{/* -translate-y-4 */}
+					<div className="absolute top-2 left-5 right-5">
+						<SystemModal message={messages[0]} />
+					</div>
+					<ScrollArea className="relative ">
+						{Xmessages.map((msg: any, index: number) => (
+							<div
+								key={index}
+								className="flex flex-col text-white"
+							>
+								<div
+									className={cn(
+										"rounded-lg px-2 py-1 max-w-[500px]",
+										{
+											"bg-blue-500 self-end":
+												msg.role === "user",
+											" hidden text-slate-700 border self-center line-clamp-1 truncate absolute top-0":
+												msg.role === "system",
+											"bg-slate-200 text-black self-start":
+												msg.role === "assistant",
+										}
+									)}
+								>
+									{msg.role === "system" && (
+										<span className="text-sm text-slate-500 mr-3">
+											System instructions:
+										</span>
+									)}
+									<MarkdownLite text={msg.content} />
+								</div>
+							</div>
+						))}
+
+						{/* LOADING STATE MESSAGE */}
+						{loading && (
+							<div className="flex flex-col text-white">
+								<div
+									className={cn(
+										"rounded-lg px-2 py-1 w-fit bg-slate-200 text-black self-start"
+									)}
+								>
+									<div className="flex text-slate-600 text-xs items-center">
+										<CgSpinner className="animate-spin mr-1" />{" "}
+										Thinking...
+									</div>
+								</div>
+							</div>
+						)}
+					</ScrollArea>
+					{/* </div> */}
+					{/* USER MESSAGE FORM */}
+					<form
+						className="fixed bottom-4 lg:absolute lg:left-5 flex gap-4 left-[80px] right-5 z-30"
+						onSubmit={messageSubmit}
+					>
+						<Input
+							className="w-full "
+							placeholder="Enter your message here..."
+							value={userMessage}
+							onChange={(e) => setUserMessage(e.target.value)}
+						/>
+						<Button
+							className=""
+							disabled={userMessage === "" || loading}
+						>
+							Send
+						</Button>
+					</form>
+				</div>

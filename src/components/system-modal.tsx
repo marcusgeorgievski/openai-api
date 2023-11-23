@@ -9,6 +9,7 @@ import {
 	AlertDialogTitle,
 	AlertDialogTrigger,
 } from "@/components/shadcn/ui/alert-dialog";
+import { cn } from "@/lib/utils";
 
 import Link from "next/link";
 import { ScrollArea } from "./shadcn/ui/scroll-area";
@@ -17,11 +18,11 @@ interface SystemModalProps {
 	//children: React.ReactNode;
 }
 
-export default function SystemModal({ message }: { message: any }) {
+export default function SystemModal({ message, className }: any) {
 	return (
 		<AlertDialog>
 			<AlertDialogTrigger asChild>
-				<button className="absolute right-0 left-0 backdrop-blur-lg overflow-hidden border px-2 py-1 rounded whitespace-nowrap">
+				<button className={className}>
 					<span className="text-sm text-slate-500 mr-3">
 						System instructions:
 					</span>
