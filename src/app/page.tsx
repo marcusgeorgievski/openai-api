@@ -25,8 +25,8 @@ export default function Home() {
 					<span className="text-emerald-500 font-medium">
 						Open API
 					</span>{" "}
-					API playground, dedicated to learning and developing in
-					Next.js.
+					API playground, dedicated to learning and developing AI
+					applications in Next.js.
 				</p>
 				<div className="flex items-center max-w-lg justify-between mt-4 gap-4">
 					<p>

@@ -24,7 +24,7 @@ export default function Sidebar() {
 	return (
 		<aside
 			className={cn(
-				"fixed top-0 bottom-0 left-0 border-r transition-all overflow-hidden=false z-50 px-2.5 py-4 bg-background",
+				"fixed top-0 bottom-0  left-0 border-r transition-all overflow-hidden=false z-50 px-2.5 py-4 bg-background",
 				{
 					"w-[57px]": !isOpen,
 					"w-[250px]": isOpen,

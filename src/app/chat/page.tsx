@@ -223,14 +223,14 @@ export default function ChatPage() {
 				{/* PAYLOAD CONTROL */}
 
 				<div className="font-mono text-slate-500 text-xs border-l px-4 hidden md:block">
-					more customization coming soon...
+					more model customization coming soon...
 				</div>
 			</div>
 		</div>
 	);
 }
 
-// create array from 1-100 with {user:'user', content: 'content'} and then map it -> testing
+// create array from 1-100 with {user:'user', content: 'content'} and then map it -> for testing
 const Xmessages = Array.from({ length: 100 }, (_, i) => ({
 	role: "user",
 	content: `content ${i}`,

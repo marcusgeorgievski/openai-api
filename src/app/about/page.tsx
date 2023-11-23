@@ -1,6 +1,11 @@
+"use client";
 import Header from "@/components/ui/header";
+import { cn } from "@/lib/utils";
 import { Terminal } from "lucide-react";
 import Link from "next/link";
+import { AiFillGithub } from "react-icons/ai";
+import { CgWebsite } from "react-icons/cg";
+import { useState } from "react";
 
 interface AboutPageProps {
 	//children: React.ReactNode;
@@ -12,6 +17,32 @@ export default function AboutPage() {
 			<Header>About</Header>
 
 			<div className="p-4 py-8 max-w-2xl mx-auto flex flex-col gap-8">
+				<Topic title="Me">
+					<p>
+						<span className="text-blue-700 font-semibold">
+							Marcus Georgievski
+						</span>
+						, Computer Science Student
+					</p>
+					<p>
+						{"-> "}Full-Stack Development, Next.js, React,
+						TypeScript, Python
+					</p>
+					<div className="flex gap-2">
+						<LinkPopover
+							icon={<AiFillGithub />}
+							popoverStyle="w-[60px] -left-3 right-0 font-medium"
+						>
+							GitHub
+						</LinkPopover>
+						<LinkPopover
+							icon={<CgWebsite />}
+							popoverStyle="w-[60px] -left-3 right-0 font-medium"
+						>
+							Website
+						</LinkPopover>
+					</div>
+				</Topic>
 				<Topic title="What is this?">
 					<p>
 						This is a project to explore the capabilities of the
@@ -27,15 +58,22 @@ export default function AboutPage() {
 
 					<div className="p-4 rounded bg-emerald-100 text-emerald-600 ">
 						<p className="font-medium mb-1 flex items-center gap-2">
-							<Terminal className="w-5" /> Tip
+							<Terminal className="w-5" /> Tip: Wording matters.
 						</p>
-						Wording matters. Entering &apos;<strong>Act</strong>{" "}
-						like a dog&apos; to the system may cause it to act like
-						a dog for 1 message, then resume back to a normal
-						chatbot. Instead, try somehting like &apos;
-						<strong>Pretend to be</strong> a dog&apos;. This will
-						help clarify you would like it to act like a dog for a
-						longer period of time.
+						Entering{" "}
+						<span className="font-mono text-sm border rounded border-emerald-500 px-1 bg-emerald-200">
+							&apos;
+							<strong>Act</strong> like a dog&apos;
+						</span>{" "}
+						to the system may cause it to act like a dog for 1
+						message, then resume back to a default chatbot. Instead,
+						try something like{" "}
+						<span className="font-mono text-sm border rounded border-emerald-500 px-1 bg-emerald-200">
+							&apos;
+							<strong>Pretend</strong> to be a dog&apos;
+						</span>{" "}
+						. This will help clarify you would like it to act like a
+						dog for a longer period of time.
 					</div>
 				</Topic>
 
@@ -114,10 +152,34 @@ function Topic({
 	children: React.ReactNode;
 }) {
 	return (
-		<div className="border-b-2 pb-8  pl-2">
-			<h3 className="text-slate-700 font-semibold mb-4">{title}</h3>
+		<div className="border-b-2 border-slate-400 pb-8 ">
+			<h3 className="text-slate-800 font-semibold mb-4 text-xl ">
+				{title}
+			</h3>
 
 			<div className="flex flex-col gap-3">{children}</div>
 		</div>
+	);
+}
+
+function LinkPopover({ icon, children, popoverStyle }: any) {
+	return (
+		<Link
+			href={"https://github.com/marcusgeorgievski"}
+			target="_blank"
+			className="p-2 transition-all bg-blue-100 hover:bg-blue-200 flex rounded-lg text-blue-700 text-xl relative group"
+		>
+			{icon}
+			<div
+				className={cn(
+					"absolute -bottom-4 text-xs mx-auto text-center opacity-0 group-hover:opacity-100 group-hover:-bottom-6 group-hover:text-sm transition-all",
+					`${popoverStyle}`
+				)}
+			>
+				<p className=" bg-blue-100 w-full text-blue-700 rounded">
+					{children}
+				</p>
+			</div>
+		</Link>
 	);
 }

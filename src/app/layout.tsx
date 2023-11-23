@@ -27,7 +27,7 @@ export default function RootLayout({
 			<body className={inter.className}>
 				<Sidebar />
 				<div className="pl-[57px]  ">
-					<main className="px-2  ">{children}</main>
+					<main className="">{children}</main>
 				</div>
 			</body>
 		</html>
