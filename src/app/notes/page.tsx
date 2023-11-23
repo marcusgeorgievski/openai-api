@@ -9,8 +9,6 @@ interface NotesPageProps {
 export default function NotesPage() {
 	return (
 		<>
-			<Header>Notes</Header>
-
 			<div className="lg:columns-2 [&>*]:break-inside-avoid-column [&>*]:mb-4 p-4 ">
 				<Note title="Assistants">
 					Look into assistants{" "}

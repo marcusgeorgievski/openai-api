@@ -133,8 +133,6 @@ export default function ChatPage() {
 
 	return (
 		<div className="h-screen">
-			<Header>Chat</Header>
-
 			<div className="p-4 relative flex flex-col lg:grid lg:grid-cols-[1fr,3fr,250px] gap-4 lg:gap-8 overflow-hidden h-[calc(100vh-57px)] ">
 				{/* SYSTEM FORM */}
 

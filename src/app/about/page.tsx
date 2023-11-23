@@ -14,8 +14,6 @@ interface AboutPageProps {
 export default function AboutPage() {
 	return (
 		<>
-			<Header>About</Header>
-
 			<div className="p-4 py-8 max-w-2xl mx-auto flex flex-col gap-8">
 				<Topic title="Me">
 					<p>
@@ -72,8 +70,8 @@ export default function AboutPage() {
 							&apos;
 							<strong>Pretend</strong> to be a dog&apos;
 						</span>{" "}
-						. This will help clarify you would like it to act like a
-						dog for a longer period of time.
+						. This clarify you want it to act like a dog
+						indefinitely.
 					</div>
 				</Topic>
 
