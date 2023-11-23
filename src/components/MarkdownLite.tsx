@@ -3,8 +3,35 @@ import Link from "next/link";
 
 const MarkdownLite = ({ text }: { text: string }) => {
 	const linkRegex = /\[(.+?)\]\((.+?)\)/g;
-	const parts = [];
+	const boldRegex = /\*\*(.*?)\*\*/g;
 
+	const parseBoldText = (text: string) => {
+		const parts = [];
+		let lastIndex = 0;
+		let match;
+
+		while ((match = boldRegex.exec(text)) !== null) {
+			const [fullMatch, boldText] = match;
+			const matchStart = match.index;
+			const matchEnd = matchStart + fullMatch.length;
+
+			if (lastIndex < matchStart) {
+				parts.push(text.slice(lastIndex, matchStart));
+			}
+
+			parts.push(<strong key={matchStart}>{boldText}</strong>);
+
+			lastIndex = matchEnd;
+		}
+
+		if (lastIndex < text.length) {
+			parts.push(text.slice(lastIndex));
+		}
+
+		return parts;
+	};
+
+	const parts = [];
 	let lastIndex = 0;
 	let match;
 
@@ -14,7 +41,7 @@ const MarkdownLite = ({ text }: { text: string }) => {
 		const matchEnd = matchStart + fullMatch.length;
 
 		if (lastIndex < matchStart) {
-			parts.push(text.slice(lastIndex, matchStart));
+			parts.push(parseBoldText(text.slice(lastIndex, matchStart)));
 		}
 
 		parts.push(
@@ -23,7 +50,7 @@ const MarkdownLite = ({ text }: { text: string }) => {
 				key={linkUrl}
 				href={linkUrl}
 			>
-				{linkText}
+				{parseBoldText(linkText)}
 			</Link>
 		);
 
@@ -31,13 +58,15 @@ const MarkdownLite = ({ text }: { text: string }) => {
 	}
 
 	if (lastIndex < text.length) {
-		parts.push(text.slice(lastIndex));
+		parts.push(parseBoldText(text.slice(lastIndex)));
 	}
 
 	return (
 		<>
 			{parts.map((part, i) => (
-				<React.Fragment key={i}>{part}</React.Fragment>
+				<React.Fragment key={i}>
+					{Array.isArray(part) ? part : [part]}
+				</React.Fragment>
 			))}
 		</>
 	);

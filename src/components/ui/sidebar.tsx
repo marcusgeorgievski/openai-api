@@ -9,6 +9,9 @@ import { usePathname } from "next/navigation";
 import { RiTerminalBoxLine } from "react-icons/ri";
 import { MdOutlineSettings } from "react-icons/md";
 import { ArrowRightLeftIcon, ChevronLeft } from "lucide-react";
+import { LuBrainCircuit } from "react-icons/lu";
+import { GrResources } from "react-icons/gr";
+import { FaGithub, FaRegNoteSticky } from "react-icons/fa6";
 
 interface SidebarProps {
 	//children: React.ReactNode;
@@ -28,10 +31,14 @@ export default function Sidebar() {
 				}
 			)}
 		>
-			<div className={cn("transition-all  flex flex-col  relative")}>
+			<div
+				className={cn(
+					"transition-all h-full   flex flex-col  relative"
+				)}
+			>
 				<button
 					onClick={toggleSidebar}
-					className="w-5 h-5 rounded-full flex items-center justify-center  absolute -right-[15.5px] -top-2 border bg-background"
+					className="w-5 h-5 rounded-full flex items-center justify-center  absolute -right-[23px] -top-2 border bg-background"
 				>
 					<ArrowRightLeftIcon className="w-3 text-slate-600" />
 				</button>
@@ -51,15 +58,32 @@ export default function Sidebar() {
 					</div>
 				</Link>
 
-				<Separator className="my-4 opacity-100" />
+				<Separator className="my-3 opacity-0" />
 
-				<div className="flex flex-col gap-2">
-					<SidebarItem icon={<RiTerminalBoxLine />} href="/chat">
-						Chat
-					</SidebarItem>
-					<SidebarItem icon={<MdOutlineSettings />} href="/settings">
-						Settings
-					</SidebarItem>
+				<div className="flex flex-col gap-2 h-full justify-between">
+					<div className="flex flex-col gap-2">
+						<SidebarItem icon={<RiTerminalBoxLine />} href="/chat">
+							Chat
+						</SidebarItem>
+						<SidebarItem icon={<LuBrainCircuit />} href="/about">
+							About
+						</SidebarItem>
+						<SidebarItem icon={<FaRegNoteSticky />} href="/notes">
+							Notes
+						</SidebarItem>
+						<SidebarItem icon={<GrResources />} href="/resources">
+							Resources
+						</SidebarItem>
+					</div>
+
+					<div className="flex flex-col gap-2 ">
+						<SidebarItem
+							icon={<FaGithub />}
+							href="https://github.com/marcusgeorgievski"
+						>
+							GitHub
+						</SidebarItem>
+					</div>
 				</div>
 			</div>
 		</aside>
@@ -86,6 +110,7 @@ export function SidebarItem({ icon, href, children }: SidebarItemProps) {
 	return (
 		<Link
 			href={href}
+			target={href.startsWith("http") ? "_blank" : ""}
 			className={cn(
 				"flex items-center gap-4 text-muted-foreground px-1.5 py-1 transition-all rounded-md ",
 				{
