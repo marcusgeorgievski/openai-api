@@ -95,7 +95,9 @@ function Note({
 			<h3 className="font-mono text-slate-500 mb-2 text-sm group-hover:underline underline-offset-2">
 				{title}
 			</h3>
-			<div className="text-slate-700">{children}</div>
+			<div className="text-slate-700 [&>*]:whitespace-pre-wrap">
+				{children}
+			</div>
 		</div>
 	);
 }

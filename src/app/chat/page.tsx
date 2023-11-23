@@ -130,7 +130,7 @@ export default function ChatPage() {
 					<p className=" top-2 left-3 absolute font-medium">System</p>
 					<Textarea
 						className="py-10 resize-none w-full h-full"
-						placeholder="Enter role of the chabot here...&#10;⌘+C -> ⌘+V some data and tell system to be an assistant, tell assistant to pretend to be a cat, etc."
+						placeholder="Enter role of the chabot here..."
 						value={systemMessage}
 						onChange={(e) => setSystemMessage(e.target.value)}
 					/>
@@ -146,7 +146,7 @@ export default function ChatPage() {
 
 				<ScrollArea className=" h-[calc(100%)] " id="chatContainer">
 					<div
-						className="flex flex-col gap-4 pt-12 pb-20 overflow-y-scroll max-h-[calc(100vh-5rem)] mx-2 px-3"
+						className="flex flex-col gap-4 pt-12 pb-20 overflow-y-scroll max-h-[calc(100vh-5rem)]  lg:mx-2 lg:px-3"
 						id="chatContainer2"
 					>
 						{/* CHAT MESSAGES */}
@@ -202,7 +202,7 @@ export default function ChatPage() {
 					</div>
 					{/* USER MESSAGE FORM */}
 					<form
-						className="bottom-4 absolute flex gap-4 left-5 right-5 z-30"
+						className="fixed bottom-4 lg:absolute lg:left-5 flex gap-4 left-[80px] right-5 z-30"
 						onSubmit={messageSubmit}
 					>
 						<Input
