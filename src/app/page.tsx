@@ -10,8 +10,8 @@ interface HomeProps {
 
 export default function Home() {
 	return (
-		<div className="w-fit px-6  mx-auto py-10 ">
-			<h1 className="text-5xl font-bold text-emerald-500 gap-2 mb-12 flex leading-tight  justify-start ">
+		<div className="w-fit px-6  mx-auto py-10  ">
+			<h1 className="text-4xl md:text-5xl font-bold text-emerald-500 gap-2 mb-12 flex leading-tight  justify-start ">
 				<RiOpenaiFill className="translate-y-1.5  flex-shrink-0" />
 				<div>
 					<span>OpenAI</span>{" "}

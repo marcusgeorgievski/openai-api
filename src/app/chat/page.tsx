@@ -10,6 +10,7 @@ import { initialPrompt } from "../../lib/data";
 import MarkdownLite from "@/components/MarkdownLite";
 import { CgSpinner } from "react-icons/cg";
 import SystemModal from "@/components/system-modal";
+import { Scroll } from "lucide-react";
 
 export default function ChatPage() {
 	//  State
