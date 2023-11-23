@@ -31,11 +31,11 @@ export default function SystemModal({ message }: { message: any }) {
 			<AlertDialogContent>
 				<AlertDialogHeader>
 					<AlertDialogTitle>System Instructions:</AlertDialogTitle>
-					<AlertDialogDescription>
-						<ScrollArea className="h-[210px] text-left whitespace-pre-wrap">
-							{message.content}
-						</ScrollArea>
-					</AlertDialogDescription>
+					{/* <AlertDialogDescription> */}
+					<ScrollArea className="h-[210px] text-left whitespace-pre-wrap text-sm text-muted-foreground">
+						{message.content}
+					</ScrollArea>
+					{/* </AlertDialogDescription> */}
 				</AlertDialogHeader>
 				<AlertDialogFooter>
 					<AlertDialogAction>Continue</AlertDialogAction>

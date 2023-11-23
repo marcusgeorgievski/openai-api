@@ -9,7 +9,6 @@ import { useEffect, useState } from "react";
 import { initialPrompt } from "../../lib/data";
 import MarkdownLite from "@/components/MarkdownLite";
 import { CgSpinner } from "react-icons/cg";
-import BasicModal from "@/components/system-modal";
 import SystemModal from "@/components/system-modal";
 
 export default function ChatPage() {
@@ -59,9 +58,23 @@ export default function ChatPage() {
 		setLoading(false);
 	}
 
-	// useEffect(() => {
-	// 	console.log(messages);
-	// }, [messages]);
+	useEffect(() => {
+		console.log("scroll...");
+		scrollToBottom();
+	}, [messages]);
+
+	function scrollToBottom() {
+		setTimeout(() => {
+			const scrollContainer = document.getElementById("chatContainer");
+			if (scrollContainer) {
+				scrollContainer.scrollTop = scrollContainer.scrollHeight;
+			}
+			const scrollContainer2 = document.getElementById("chatContainer2");
+			if (scrollContainer2) {
+				scrollContainer2.scrollTop = scrollContainer2.scrollHeight;
+			}
+		}, 100);
+	}
 
 	// Add new user message to messages array
 	async function messageSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -107,10 +120,13 @@ export default function ChatPage() {
 		<div className="h-screen">
 			<Header>Chat</Header>
 
-			<div className="p-4  grid grid-cols-1 md:grid-cols-[1fr,3fr,250px] gap-8 h-[calc(100%-3.5rem)]">
+			<div className="p-4 relative flex flex-col lg:grid lg:grid-cols-[1fr,3fr,250px] gap-4 lg:gap-8 h-[calc(100%-3.5rem)]">
 				{/* SYSTEM FORM */}
 
-				<form className="relative   md:h-full" onSubmit={systemSubmit}>
+				<form
+					className="relative h-[150px] flex-shrink-0 lg:h-full"
+					onSubmit={systemSubmit}
+				>
 					<p className=" top-2 left-3 absolute font-medium">System</p>
 					<Textarea
 						className="py-10 resize-none w-full h-full"
@@ -128,71 +144,69 @@ export default function ChatPage() {
 
 				{/* CHAT CONTAINER */}
 
-				<div className="relative  ">
-					<ScrollArea
-						className="md:h-[calc(100vh-8rem)] px-4  py-12"
-						id="chatContainer"
+				<ScrollArea className=" h-[calc(100%)] " id="chatContainer">
+					<div
+						className="flex flex-col gap-4 pt-12 pb-20 overflow-y-scroll max-h-[calc(100vh-5rem)] mx-2 px-3"
+						id="chatContainer2"
 					>
-						<div className=" flex flex-col gap-4 pt-4">
-							{/* CHAT MESSAGES */}
-							{/* System messages hidden for now */}
+						{/* CHAT MESSAGES */}
+						{/* System messages hidden for now */}
 
-							<div className="-translate-y-4">
-								<SystemModal message={messages[0]} />
-							</div>
-							{messages.map((msg: any, index: number) => (
-								<div
-									key={index}
-									className="flex flex-col text-white"
-								>
-									<div
-										className={cn(
-											"rounded-lg px-2 py-1 max-w-[500px]",
-											{
-												"bg-blue-500 self-end":
-													msg.role === "user",
-												" hidden text-slate-700 border self-center line-clamp-1 truncate absolute top-0":
-													msg.role === "system",
-												"bg-slate-200 text-black self-start":
-													msg.role === "assistant",
-											}
-										)}
-									>
-										{msg.role === "system" && (
-											<span className="text-sm text-slate-500 mr-3">
-												System instructions:
-											</span>
-										)}
-										<MarkdownLite text={msg.content} />
-									</div>
-								</div>
-							))}
-
-							{/* LOADING STATE MESSAGE */}
-							{loading && (
-								<div className="flex flex-col text-white">
-									<div
-										className={cn(
-											"rounded-lg px-2 py-1 w-fit bg-slate-200 text-black self-start"
-										)}
-									>
-										<div className="flex text-slate-600 text-xs items-center">
-											<CgSpinner className="animate-spin mr-1" />{" "}
-											Thinking...
-										</div>
-									</div>
-								</div>
-							)}
+						{/* -translate-y-4 */}
+						<div className="absolute top-2 left-5 right-5">
+							<SystemModal message={messages[0]} />
 						</div>
-					</ScrollArea>
+						{messages.map((msg: any, index: number) => (
+							<div
+								key={index}
+								className="flex flex-col text-white"
+							>
+								<div
+									className={cn(
+										"rounded-lg px-2 py-1 max-w-[500px]",
+										{
+											"bg-blue-500 self-end":
+												msg.role === "user",
+											" hidden text-slate-700 border self-center line-clamp-1 truncate absolute top-0":
+												msg.role === "system",
+											"bg-slate-200 text-black self-start":
+												msg.role === "assistant",
+										}
+									)}
+								>
+									{msg.role === "system" && (
+										<span className="text-sm text-slate-500 mr-3">
+											System instructions:
+										</span>
+									)}
+									<MarkdownLite text={msg.content} />
+								</div>
+							</div>
+						))}
 
+						{/* LOADING STATE MESSAGE */}
+						{loading && (
+							<div className="flex flex-col text-white">
+								<div
+									className={cn(
+										"rounded-lg px-2 py-1 w-fit bg-slate-200 text-black self-start"
+									)}
+								>
+									<div className="flex text-slate-600 text-xs items-center">
+										<CgSpinner className="animate-spin mr-1" />{" "}
+										Thinking...
+									</div>
+								</div>
+							</div>
+						)}
+					</div>
 					{/* USER MESSAGE FORM */}
 					<form
-						className="bottom-0 absolute flex gap-4 left-0 right-0"
+						className="bottom-4 absolute flex gap-4 left-5 right-5 z-30"
 						onSubmit={messageSubmit}
 					>
 						<Input
-							className="w-full"
+							className="w-full "
 							placeholder="Enter your message here..."
 							value={userMessage}
 							onChange={(e) => setUserMessage(e.target.value)}
@@ -204,12 +218,12 @@ export default function ChatPage() {
 							Send
 						</Button>
 					</form>
-				</div>
+				</ScrollArea>
 
 				{/* PAYLOAD CONTROL */}
 
-				<div className="font-mono text-slate-500 text-sm border-l px-4 hidden md:block">
-					coming soon...
+				<div className="font-mono text-slate-500 text-xs border-l px-4 hidden md:block">
+					more customization coming soon...
 				</div>
 			</div>
 		</div>
