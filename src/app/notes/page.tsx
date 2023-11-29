@@ -9,7 +9,7 @@ interface NotesPageProps {
 export default function NotesPage() {
 	return (
 		<>
-			<div className="lg:columns-2 [&>*]:break-inside-avoid-column [&>*]:mb-4 p-4 ">
+			<div className="lg:columns-2 [&>*]:break-inside-avoid-column [&>*]:mb-4 px-4 ">
 				<Note title="Assistants">
 					Look into assistants{" "}
 					<Link

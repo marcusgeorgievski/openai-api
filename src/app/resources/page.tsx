@@ -9,7 +9,7 @@ interface ResourcesPageProps {
 export default function ResourcesPage() {
 	return (
 		<>
-			<div className="text-emerald-600 p-4 flex flex-col gap-8">
+			<div className="text-emerald-600 px-4 flex flex-col gap-8">
 				{resources.map((resource) => (
 					<div
 						className="flex flex-col gap-2 ml-4"

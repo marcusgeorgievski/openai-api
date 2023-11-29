@@ -28,7 +28,7 @@ export default function RootLayout({
 			<body className={inter.className}>
 				<Sidebar />
 				<div className="pl-[57px]  ">
-					<main className="">
+					<main className="h-screen pt-20">
 						<HeaderLayout />
 						{children}
 					</main>

@@ -3,14 +3,12 @@ import { Button } from "@/components/shadcn/ui/button";
 import { Input } from "@/components/shadcn/ui/input";
 import { ScrollArea } from "@/components/shadcn/ui/scroll-area";
 import { Textarea } from "@/components/shadcn/ui/textarea";
-import Header from "@/components/ui/header";
 import { cn } from "@/lib/utils";
 import { useEffect, useState } from "react";
-import { initialPrompt } from "../../lib/data";
+import { initialPrompt, initialMessage } from "../../lib/data";
 import MarkdownLite from "@/components/MarkdownLite";
 import { CgSpinner } from "react-icons/cg";
 import SystemModal from "@/components/system-modal";
-import { Scroll } from "lucide-react";
 
 export default function ChatPage() {
 	//  State
@@ -22,8 +20,7 @@ export default function ChatPage() {
 		},
 		{
 			role: "assistant",
-			content:
-				"🪴 Hi! I am your plant shop assistant. How can I help you today?",
+			content: initialMessage,
 		},
 	]);
 	const [userMessage, setUserMessage] = useState("");
@@ -132,8 +129,8 @@ export default function ChatPage() {
 	}
 
 	return (
-		<div className="h-screen">
-			<div className="p-4 relative flex flex-col lg:grid lg:grid-cols-[1fr,3fr,250px] gap-4 lg:gap-8 overflow-hidden h-[calc(100vh-57px)] ">
+		<div className="">
+			<div className="px-4 relative flex flex-col lg:grid lg:grid-cols-[1fr,3fr,250px] gap-4 lg:gap-8 overflow-hidden p-y h-[calc(100vh-90px)] ">
 				{/* SYSTEM FORM */}
 
 				<form
@@ -160,7 +157,7 @@ export default function ChatPage() {
 				{/* CHAT CONTAINER HERE */}
 				<div className=" flex flex-col gap-1.5  h-[calc(100%-178px)] lg:h-full overflow-hidden relative py-12">
 					<SystemModal
-						message={messages[0]}
+						message={messages[0] || { content: "" }}
 						className="border px-4 py-1 h-8 overflow-hidden rounded absolute top-0 left-0 right-0 backdrop-blur-lg"
 					/>
 

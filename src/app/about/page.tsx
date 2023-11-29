@@ -1,11 +1,9 @@
 "use client";
-import Header from "@/components/ui/header";
 import { cn } from "@/lib/utils";
 import { Terminal } from "lucide-react";
 import Link from "next/link";
 import { AiFillGithub } from "react-icons/ai";
 import { CgWebsite } from "react-icons/cg";
-import { useState } from "react";
 
 interface AboutPageProps {
 	//children: React.ReactNode;
@@ -14,7 +12,7 @@ interface AboutPageProps {
 export default function AboutPage() {
 	return (
 		<>
-			<div className="p-4 py-8 max-w-2xl mx-auto flex flex-col gap-8">
+			<div className="px-4 pb-8 max-w-2xl mx-auto flex flex-col gap-8">
 				<Topic title="Me">
 					<p>
 						<span className="text-blue-700 font-semibold">

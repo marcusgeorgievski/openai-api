@@ -7,11 +7,11 @@ import { Separator } from "../shadcn/ui/separator";
 import { usePathname } from "next/navigation";
 
 import { RiTerminalBoxLine } from "react-icons/ri";
-import { MdOutlineSettings } from "react-icons/md";
-import { ArrowRightLeftIcon, ChevronLeft } from "lucide-react";
+import { ArrowRightLeftIcon } from "lucide-react";
 import { LuBrainCircuit } from "react-icons/lu";
 import { GrResources } from "react-icons/gr";
 import { FaGithub, FaRegNoteSticky } from "react-icons/fa6";
+import { LiaHandsHelpingSolid } from "react-icons/lia";
 
 interface SidebarProps {
 	//children: React.ReactNode;
@@ -64,6 +64,12 @@ export default function Sidebar() {
 					<div className="flex flex-col gap-2">
 						<SidebarItem icon={<RiTerminalBoxLine />} href="/chat">
 							Chat
+						</SidebarItem>
+						<SidebarItem
+							icon={<LiaHandsHelpingSolid />}
+							href="/assistant"
+						>
+							Assistant
 						</SidebarItem>
 						<SidebarItem icon={<LuBrainCircuit />} href="/about">
 							About
