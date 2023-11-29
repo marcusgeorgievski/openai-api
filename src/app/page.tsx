@@ -1,8 +1,7 @@
-import { Separator } from "@/components/shadcn/ui/separator";
-import Header from "@/components/ui/header";
 import Link from "next/link";
 import { RiOpenaiFill } from "react-icons/ri";
 import { CiChat1 } from "react-icons/ci";
+import { CiWarning } from "react-icons/ci";
 
 interface HomeProps {
 	//children: React.ReactNode;
@@ -58,6 +57,11 @@ export default function Home() {
 						<CiChat1 className="text-xl animate-pulse" />
 						Chat Now
 					</Link>
+				</div>
+
+				<div className="bg-yellow-100 rounded p-1 border border-yellow-200 flex items-center text-sm mt-4 text-slate-800">
+					<CiWarning className="mr-2 text-xl" /> Please allow for
+					longer response times on vercel
 				</div>
 			</div>
 		</div>

@@ -9,6 +9,7 @@ import { initialPrompt, initialMessage } from "../../lib/data";
 import MarkdownLite from "@/components/MarkdownLite";
 import { CgSpinner } from "react-icons/cg";
 import SystemModal from "@/components/system-modal";
+import { CiWarning } from "react-icons/ci";
 
 export default function ChatPage() {
 	//  State
