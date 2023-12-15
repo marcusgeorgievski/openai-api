@@ -10,8 +10,23 @@ import MarkdownLite from "@/components/MarkdownLite";
 import { CgSpinner } from "react-icons/cg";
 import SystemModal from "@/components/system-modal";
 import { CiWarning } from "react-icons/ci";
+import Slidy from "@/components/slidy";
+import {
+	DropdownMenu,
+	DropdownMenuContent,
+	DropdownMenuItem,
+	DropdownMenuLabel,
+	DropdownMenuSeparator,
+	DropdownMenuTrigger,
+} from "@/components/shadcn/ui/dropdown-menu";
 
 export default function ChatPage() {
+	// Payload
+	const [max_tokens, setMaxTokens] = useState(256);
+	const [temperature, setTemperature] = useState(0.8);
+	const [top_p, setTopP] = useState(1);
+	const [frequency_penalty, setFrequencyPenalty] = useState(0);
+
 	//  State
 	const [systemMessage, setSystemMessage] = useState("");
 	const [messages, setMessages] = useState<any>([
@@ -233,8 +248,31 @@ export default function ChatPage() {
 
 				{/* PAYLOAD CONTROL */}
 
-				<div className="font-mono text-slate-500 text-xs border-l px-4 hidden lg:block">
-					more model customization coming soon...
+				<div className="border-l text-xs p-4  flex-col gap-4 lg:flex hidden">
+					<Slidy
+						name="Max Tokens"
+						fnChange={setMaxTokens}
+						def={max_tokens}
+						description="Word limit for responses"
+					/>
+					<Slidy
+						name="Temperature"
+						fnChange={setTemperature}
+						def={temperature}
+						description="Creativity of responses"
+					/>
+					<Slidy
+						name="Top P"
+						fnChange={setTopP}
+						def={top_p}
+						description="Creativity of responses"
+					/>
+					<Slidy
+						name="Frequency Penalty"
+						fnChange={setFrequencyPenalty}
+						def={frequency_penalty}
+						description="Discouragement of repetition"
+					/>
 				</div>
 			</div>
 		</div>
@@ -246,7 +284,3 @@ const Xmessages = Array.from({ length: 100 }, (_, i) => ({
 	role: "user",
 	content: `content ${i}`,
 }));
-
-/* 
-
-*/
