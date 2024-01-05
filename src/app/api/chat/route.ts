@@ -3,9 +3,9 @@ import { getChatMessage } from "@/lib/openai-chat";
 export const runtime = "edge"; // 'nodejs' is the default
 
 export async function POST(req: Request) {
-	const { messages } = await req.json();
+	const payload = await req.json();
 
-	const payload = { messages };
+	console.log(payload);
 
 	const res = await getChatMessage(payload);
 

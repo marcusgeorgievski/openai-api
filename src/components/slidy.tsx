@@ -50,7 +50,7 @@ export default function Slidy({
 				max={max}
 				min={min}
 				step={step}
-				value={[value]}
+				value={[def]}
 				onValueChange={handleChange}
 			/>
 		</div>

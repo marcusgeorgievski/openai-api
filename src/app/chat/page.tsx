@@ -9,12 +9,13 @@ import { initialPrompt, initialMessage } from "../../lib/data";
 import MarkdownLite from "@/components/MarkdownLite";
 import { CgSpinner } from "react-icons/cg";
 import SystemModal from "@/components/system-modal";
-import { CiWarning } from "react-icons/ci";
+
 import Slidy from "@/components/slidy";
+import { PiSlidersHorizontalDuotone } from "react-icons/pi";
+
 import {
 	DropdownMenu,
 	DropdownMenuContent,
-	DropdownMenuItem,
 	DropdownMenuLabel,
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
@@ -75,7 +76,7 @@ export default function ChatPage() {
 	// Scroll to bottom of chat container when message is added
 	useEffect(() => {
 		scrollToBottom();
-		console.log(messages);
+		// console.log(messages);
 	}, [messages]);
 
 	// Add class to chat container's inner element to enable smooth scrolling
@@ -120,6 +121,10 @@ export default function ChatPage() {
 				method: "POST",
 				body: JSON.stringify({
 					messages: [...messages, newMessage],
+					temperature,
+					max_tokens,
+					top_p,
+					frequency_penalty,
 				}),
 			});
 
@@ -128,7 +133,7 @@ export default function ChatPage() {
 			// Add assistant message to messages array
 			setMessages((msg: any) => [...msg, data.assistant]);
 
-			console.log("RESPONSE: ", data);
+			// console.log("RESPONSE: ", data);
 		} catch (error) {
 			console.error("FAILURE");
 		}
@@ -153,7 +158,48 @@ export default function ChatPage() {
 					className="relative h-[150px] flex-shrink-0 lg:h-full"
 					onSubmit={systemSubmit}
 				>
-					<p className=" top-2 left-3 absolute font-medium">System</p>
+					<div className=" top-2 left-3 absolute font-medium flex gap-4">
+						System
+						<DropdownMenu>
+							<DropdownMenuTrigger className="border p-1 rounded hover:bg-foreground/10">
+								<PiSlidersHorizontalDuotone />
+							</DropdownMenuTrigger>
+							<DropdownMenuContent align="start" asChild>
+								<div>
+									<DropdownMenuLabel>
+										Configure Model
+									</DropdownMenuLabel>
+									<DropdownMenuSeparator />
+									<div className=" text-xs p-4  flex-col gap-4 flex">
+										<Slidy
+											name="Max Tokens"
+											fnChange={setMaxTokens}
+											def={max_tokens}
+											description="Word limit for responses"
+										/>
+										<Slidy
+											name="Temperature"
+											fnChange={setTemperature}
+											def={temperature}
+											description="Creativity of responses"
+										/>
+										<Slidy
+											name="Top P"
+											fnChange={setTopP}
+											def={top_p}
+											description="Creativity of responses"
+										/>
+										<Slidy
+											name="Frequency Penalty"
+											fnChange={setFrequencyPenalty}
+											def={frequency_penalty}
+											description="Discouragement of repetition"
+										/>
+									</div>
+								</div>
+							</DropdownMenuContent>
+						</DropdownMenu>
+					</div>
 					<Textarea
 						className="py-10 resize-none w-full h-full"
 						placeholder="Enter role of the chabot here..."
@@ -225,7 +271,6 @@ export default function ChatPage() {
 							</div>
 						)}
 					</ScrollArea>
-
 					{/* USER MESSAGE FORM */}
 					<form
 						className="flex items-center bottom-0 absolute left-0 right-0 gap-2"
@@ -249,29 +294,41 @@ export default function ChatPage() {
 				{/* PAYLOAD CONTROL */}
 
 				<div className="border-l text-xs p-4  flex-col gap-4 lg:flex hidden">
+					<h3 className="font-bold border-b pb-1">Configure Model</h3>
 					<Slidy
 						name="Max Tokens"
 						fnChange={setMaxTokens}
 						def={max_tokens}
 						description="Word limit for responses"
+						min={1}
+						max={500}
 					/>
 					<Slidy
 						name="Temperature"
 						fnChange={setTemperature}
 						def={temperature}
 						description="Creativity of responses"
+						min={0}
+						max={2}
+						step="0.1"
 					/>
 					<Slidy
 						name="Top P"
 						fnChange={setTopP}
 						def={top_p}
-						description="Creativity of responses"
+						description="tbd"
+						min={0}
+						max={1}
+						step="0.1"
 					/>
 					<Slidy
 						name="Frequency Penalty"
 						fnChange={setFrequencyPenalty}
 						def={frequency_penalty}
-						description="Discouragement of repetition"
+						description="tbd"
+						min={0}
+						max={2}
+						step="0.1"
 					/>
 				</div>
 			</div>
